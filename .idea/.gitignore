@@ -1,0 +1,6 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+#secrets
+src/test/resources/auth.properties
