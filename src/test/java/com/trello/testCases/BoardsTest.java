@@ -1,45 +1,47 @@
 package com.trello.testCases;
 
 import com.trello.apis.BoardApis;
+import com.trello.base.BaseTest;
 import com.trello.models.Board;
 import com.trello.steps.BoardSteps;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
-import static com.trello.apis.BoardApis.*;
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
-public class BoardsTest {
+public class BoardsTest extends BaseTest {
 
     @Test
     public void testCreateBoard(){
-        // generate board
         Board board = BoardSteps.generateBoard();
-        // send create board request
-        Response response =createBoard(board.name);
-        // store the response data in pojo class
-        Board returnedBoard=  response.body().as(Board.class);
+        Response response = BoardApis.createBoard(board.name);
+        Board returnedBoard = response.body().as(Board.class);
 
-        assertThat(response.statusCode(),equalTo(200));
-        assertThat(board.getName(),equalTo(returnedBoard.getName()));
+        assertThat(response.statusCode(), equalTo(200));
+        assertThat(board.getName(), equalTo(returnedBoard.getName()));
     }
 
     @Test
-    public void getBoard(){
-        // generate board
+    public void testGetBoard(){
         Board board = BoardSteps.generateBoard();
-        // send create board request
-        Response response =createBoard(board.name);
-        Board returnedBoard=  response.body().as(Board.class);
-        String createdBoardID =returnedBoard.getId();
+        Board returnedBoard = BoardApis.createBoard(board.name).body().as(Board.class);
+        String createdBoardID = returnedBoard.getId();
 
+        Board gettedBoard = BoardApis.getBoard(createdBoardID).body().as(Board.class);
 
-        Response getBoardResponse = BoardApis.getBoard(createdBoardID);
-        Board gettedBoard= getBoardResponse.body().as(Board.class);
-
-        assertThat(getBoardResponse.statusCode(),equalTo(200));
-        assertThat(createdBoardID,equalTo(gettedBoard.getId()));
-        assertThat(returnedBoard.getName(),equalTo(gettedBoard.getName()));
+        assertThat(createdBoardID, equalTo(gettedBoard.getId()));
+        assertThat(returnedBoard.getName(), equalTo(gettedBoard.getName()));
     }
+
+    @Test
+    public void testDeleteBoard(){
+        Board board = BoardSteps.generateBoard();
+        Board returnedBoard = BoardApis.createBoard(board.name).body().as(Board.class);
+
+        Response deleteBoardResponse = BoardApis.deleteBoard(returnedBoard.getId());
+        assertThat(deleteBoardResponse.statusCode(), equalTo(200));
+    }
+
+
 }

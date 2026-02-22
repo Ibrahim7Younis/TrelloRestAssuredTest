@@ -6,8 +6,8 @@ import com.trello.models.Board;
 public class BoardSteps {
 
     public static Board generateBoard(){
-        Faker faker=new Faker();
-        String boardName =faker.book().genre();
+        Faker faker = new Faker();
+        String boardName = faker.book().genre();
         return new Board(boardName);
     }
 }

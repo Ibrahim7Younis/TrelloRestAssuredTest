@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Trello Test Suite" parallel="methods" thread-count="9">
+    <test name="Board Tests">
+        <classes>
+            <class name="com.trello.testCases.BoardsTest"/>
+        </classes>
+    </test>
+    <test name="List Tests">
+        <classes>
+            <class name="com.trello.testCases.ListsTest"/>
+        </classes>
+    </test>
+    <test name="Card Tests">
+        <classes>
+            <class name="com.trello.testCases.CardsTest"/>
+        </classes>
+    </test>
+</suite>

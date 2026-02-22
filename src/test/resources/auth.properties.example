@@ -1,4 +1,15 @@
+# Trello API credentials - OAuth 1.0
+# See README.md for full setup instructions.
+# Copy this file, rename it to auth.properties, then fill in your credentials.
+
+# Your Trello API Key - found at https://trello.com/power-ups/admin
 consumerKey=
+
+# Your Trello API Key Secret - revealed on the same page by clicking "Secret"
 consumerSecret=
+
+# Your generated Token - click the "Token" link on the API Key page and approve access
 accessToken=
+
+# Your Token Secret - shown alongside the access token after generation
 tokenSecret=
